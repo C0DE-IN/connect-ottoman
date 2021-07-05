@@ -1,0 +1,26 @@
+{
+  "name": "connect-ottoman",
+  "version": "1.0.0",
+  "description": "connect-ottoman provides Couchbase Ottoman session storage for Express. Requires Ottoman >= 2.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/noiissyboy/connect-ottoman.git"
+  },
+  "keywords": [
+    "couchbase",
+    "ottoman",
+    "express-session",
+    "store",
+    "session-store"
+  ],
+  "author": "Vigneshwaran Ranganathan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/noiissyboy/connect-ottoman/issues"
+  },
+  "homepage": "https://github.com/noiissyboy/connect-ottoman#readme"
+}
