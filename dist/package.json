@@ -3,13 +3,6 @@
   "version": "1.0.0-alpha",
   "description": "connect-ottoman provides Couchbase Ottoman session storage for Express. Requires Ottoman >= 2.0.0-beta.2",
   "main": "index.js",
-  "scripts": {
-    "prebuild": "rm -rf dist",
-    "build": "tsc && cp package.json dist/package.json",
-    "postbuild": "perl -0777 -pi -e 's/\"scripts\".*\"repository\"/\"repository\"/igs' dist/package.json",
-    "publish": " cd dist && npm publish",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/noiissyboy/connect-ottoman.git"
