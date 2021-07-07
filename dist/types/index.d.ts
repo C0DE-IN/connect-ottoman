@@ -1,1 +1,2 @@
-export * from './lib/OttomanStore';
+import OttomanStore from './lib/OttomanStore';
+export = OttomanStore;
