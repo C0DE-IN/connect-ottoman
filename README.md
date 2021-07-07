@@ -1,5 +1,3 @@
-
-![Build Status](https://github.com/noiissyboy/connect-ottoman/workflows/build/badge.svg?branch=master)
 **connect-ottoman** provides Ottoman session storage for Express. Requires Ottoman >= `2.0.0-beta`.
 
 ## Installation
