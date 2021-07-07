@@ -1,7 +1,6 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
+Object.defineProperty(exports, "__esModule", { value: true });
+const OttomanStore_1 = require("./lib/OttomanStore");
+exports.default = (_session) => {
+    return OttomanStore_1.OttomanStore;
 };
-const OttomanStore_1 = __importDefault(require("./lib/OttomanStore"));
-module.exports = OttomanStore_1.default;
-// export * from './lib/OttomanStore'
