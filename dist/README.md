@@ -5,7 +5,7 @@
 npm:
 
 ```sh
-npm install redis connect-ottoman express-session express
+npm install connect-ottoman express-session express
 ```
 
 Yarn:
