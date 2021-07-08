@@ -1,4 +1,4 @@
-import connectOttoman from 'connect-ottoman'
+import connectOttoman from '../'
 import express from 'express'
 import session, { Store } from 'express-session'
 

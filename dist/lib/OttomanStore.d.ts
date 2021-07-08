@@ -22,16 +22,15 @@ export declare class OttomanStore extends Store {
         [sid: string]: session.SessionData;
     } | null) => void): void;
 }
-interface OttomanStoreOptions {
+export interface OttomanStoreOptions {
     client?: connectOptions;
     collectionName?: string;
     maxExpiry?: number;
     prefix?: string;
 }
-interface connectOptions {
+export interface connectOptions {
     connectionString: string;
     bucketName: string;
     username: string;
     password: string;
 }
-export {};

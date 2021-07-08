@@ -145,13 +145,13 @@ export class OttomanStore extends Store {
 }
 
 
-interface OttomanStoreOptions {
+export interface OttomanStoreOptions {
   client?: connectOptions;
   collectionName?: string;
   maxExpiry?: number;
   prefix?: string;
 }
-interface connectOptions {
+export interface connectOptions {
   connectionString: string;
   bucketName: string;
   username: string;
