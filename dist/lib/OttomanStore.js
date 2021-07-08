@@ -75,6 +75,73 @@ class OttomanStore extends express_session_1.Store {
             }
         })();
     }
+    touch(sid, session, callback = noop) {
+        ;
+        (async () => {
+            try {
+                let key = this.prefix + sid;
+                const { ottoman, SessionModel } = this.connectToOttoman();
+                ottoman.start();
+                const result = await SessionModel.findOneAndUpdate({ id: key }, {});
+                ottoman.close();
+                if (result.length === 0) {
+                    return callback(new Error('Unable to find the session to touch'));
+                }
+                else {
+                    this.emit('touch', sid, session);
+                    return callback(null);
+                }
+            }
+            catch (err) {
+                callback(err);
+            }
+        })();
+    }
+    length(callback) {
+        ;
+        (async () => {
+            try {
+                const { ottoman, SessionModel } = this.connectToOttoman();
+                ottoman.start();
+                const result = await SessionModel.count({ name: { $like: "%*%" } });
+                ottoman.close();
+                callback(null, result);
+            }
+            catch (err) {
+                callback(err, 0);
+            }
+        })();
+    }
+    clear(callback = noop) {
+        ;
+        (async () => {
+            try {
+                const { ottoman, SessionModel } = this.connectToOttoman();
+                ottoman.start();
+                await SessionModel.removeMany({ id: { $like: '%*%' } });
+                ottoman.close();
+                callback(null);
+            }
+            catch (err) {
+                callback(err);
+            }
+        })();
+    }
+    all(callback) {
+        ;
+        (async () => {
+            try {
+                const { ottoman, SessionModel } = this.connectToOttoman();
+                ottoman.start();
+                const result = await SessionModel.find({ id: { $like: '%*%' } });
+                ottoman.close();
+                callback(null, result);
+            }
+            catch (err) {
+                callback(err);
+            }
+        })();
+    }
 }
 exports.OttomanStore = OttomanStore;
 const SessionSchema = new ottoman_1.Schema({
