@@ -80,15 +80,20 @@ class OttomanStore extends express_session_1.Store {
         (async () => {
             try {
                 let key = this.prefix + sid;
+                if (session?.cookie?.expires) {
+                    const expiration = new Date(session.cookie.expires);
+                }
+                else {
+                    const expiration = new Date(Date.now() + this.maxExpiry * 1000);
+                }
                 const { ottoman, SessionModel } = this.connectToOttoman();
                 ottoman.start();
-                const result = await SessionModel.findOneAndUpdate({ id: key }, {});
+                const result = await SessionModel.findOneAndUpdate({ id: key }, { session: session });
                 ottoman.close();
                 if (result.length === 0) {
                     return callback(new Error('Unable to find the session to touch'));
                 }
                 else {
-                    this.emit('touch', sid, session);
                     return callback(null);
                 }
             }
@@ -103,7 +108,7 @@ class OttomanStore extends express_session_1.Store {
             try {
                 const { ottoman, SessionModel } = this.connectToOttoman();
                 ottoman.start();
-                const result = await SessionModel.count({ name: { $like: "%*%" } });
+                const result = await SessionModel.count({ id: { $like: "%*%" } });
                 ottoman.close();
                 callback(null, result);
             }

@@ -77,71 +77,75 @@ export class OttomanStore extends Store {
       }
     })()
   }
-  
+
   touch(sid: string,
-      session: session.SessionData & { lastModified?: Date },
-      callback: (err: any) => void = noop) {
-      ; (async () => {
-        try {
-          let key = this.prefix + sid
-          const { ottoman, SessionModel } = this.connectToOttoman()
-          ottoman.start()
-          const result = await SessionModel.findOneAndUpdate({ id: key }, {})
-          ottoman.close()
-          if (result.length === 0) {
-            return callback(new Error('Unable to find the session to touch'))
-          } else {
-            this.emit('touch', sid, session)
-            return callback(null)
-          }
-        } catch (err) { callback(err) }
-      })()
-    }
-
-    length(callback: (err: any, length: number) => void): void {
-      ; (async () => {
-        try {
-          const { ottoman, SessionModel } = this.connectToOttoman()
-          ottoman.start()
-          const result = await SessionModel.count({ name: { $like: "%*%" } })
-          ottoman.close()
-          callback(null, result)
+    session: session.SessionData & { lastModified?: Date },
+    callback: (err: any) => void = noop) {
+    ; (async () => {
+      try {
+        let key = this.prefix + sid
+        if (session?.cookie?.expires) {
+          const expiration = new Date(session.cookie.expires)
+        } else {
+          const expiration = new Date(Date.now() + this.maxExpiry * 1000)
         }
-        catch (err) { callback(err, 0) }
-      })()
-    }
+        const { ottoman, SessionModel } = this.connectToOttoman()
+        ottoman.start()
+        const result = await SessionModel.findOneAndUpdate({ id: key }, { session: session })
+        ottoman.close()
+        if (result.length === 0) {
+          return callback(new Error('Unable to find the session to touch'))
+        } else {
+          return callback(null)
+        }
+      } catch (err) { callback(err) }
+    })()
+  }
 
-    clear(callback: (err: any) => void = noop): void {
-      ; (async () => {
-        try {
-          const { ottoman, SessionModel } = this.connectToOttoman()
-          ottoman.start()
-          await SessionModel.removeMany({ id: { $like: '%*%' } })
-          ottoman.close()
-          callback(null)
-        } catch (err) { callback(err) }
-      })()
-    }
+  length(callback: (err: any, length: number) => void): void {
+    ; (async () => {
+      try {
+        const { ottoman, SessionModel } = this.connectToOttoman()
+        ottoman.start()
+        const result = await SessionModel.count({ id: { $like: "%*%" } })
+        ottoman.close()
+        callback(null, result)
+      }
+      catch (err) { callback(err, 0) }
+    })()
+  }
 
-    all(
-      callback: (
-        err: any,
-        obj?:
-          | session.SessionData[]
-          | { [sid: string]: session.SessionData }
-          | null
-      ) => void
-    ): void {
-      ; (async () => {
-        try {
-          const { ottoman, SessionModel } = this.connectToOttoman()
-          ottoman.start()
-          const result = await SessionModel.find({ id: { $like: '%*%' } })
-          ottoman.close()
-          callback(null, result)
-        } catch (err) { callback(err) }
-      })()
-    }
+  clear(callback: (err: any) => void = noop): void {
+    ; (async () => {
+      try {
+        const { ottoman, SessionModel } = this.connectToOttoman()
+        ottoman.start()
+        await SessionModel.removeMany({ id: { $like: '%*%' } })
+        ottoman.close()
+        callback(null)
+      } catch (err) { callback(err) }
+    })()
+  }
+
+  all(
+    callback: (
+      err: any,
+      obj?:
+        | session.SessionData[]
+        | { [sid: string]: session.SessionData }
+        | null
+    ) => void
+  ): void {
+    ; (async () => {
+      try {
+        const { ottoman, SessionModel } = this.connectToOttoman()
+        ottoman.start()
+        const result = await SessionModel.find({ id: { $like: '%*%' } })
+        ottoman.close()
+        callback(null, result)
+      } catch (err) { callback(err) }
+    })()
+  }
 }
 
 
