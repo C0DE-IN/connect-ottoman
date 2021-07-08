@@ -1,22 +1,3 @@
-**connect-ottoman** provides Ottoman session storage for Express. Requires Ottoman >= `2.0.0-beta`.
-
-## Installation
-
-npm:
-
-```sh
-npm install connect-ottoman express-session express
-```
-
-Yarn:
-
-```sh
-yarn add connect-ottoman express-session express
-```
-
-## API
-
-```ts
 import connectOttoman from 'connect-ottoman'
 import express from 'express'
 import session, { Store } from 'express-session'
@@ -56,4 +37,3 @@ import session, { Store } from 'express-session'
 
     app.listen(3000, () => console.log(`http://localhost:3000`))
   })()
-```

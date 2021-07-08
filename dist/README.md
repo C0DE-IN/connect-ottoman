@@ -21,7 +21,7 @@ import connectOttoman from 'connect-ottoman'
 import express from 'express'
 import session, { Store } from 'express-session'
 
-; (async () => {
+  ; (async () => {
     const OttomanStore = connectOttoman(session)
     const client = {
       connectionString: 'localhost:8091',
@@ -30,28 +30,29 @@ import session, { Store } from 'express-session'
       password: 'example'
     }
     const store = new OttomanStore({ client })
-    const app = createApp(store)
-    
-    export const createApp = (store: Store) => {
-    const app = express()
-    app.use(express.json())
-    app.use(session({
-      ...{
+
+
+    const createApp = (store: Store) => {
+      const app = express()
+      app.use(express.json())
+      app.use(session({
+        ...{
           secret: 'example',
           name: 'sid',
           cookie: {
-          maxAge: 180000,
-          secure: false,
-          sameSite: true
-      },
-      rolling: true,
-      resave: false,
-      saveUninitialized: false
-      },
-      store
-    }))
-    return app
-}
+            maxAge: 180000,
+            secure: false,
+            sameSite: true
+          },
+          rolling: true,
+          resave: false,
+          saveUninitialized: false
+        },
+        store
+      }))
+      return app
+    }
+    const app = createApp(store)
 
     app.listen(3000, () => console.log(`http://localhost:3000`))
   })()
