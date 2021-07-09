@@ -1,5 +1,7 @@
 **connect-ottoman** provides Ottoman session storage for Express. Requires Ottoman >= `2.0.0-beta`.
 
+
+
 ## Installation
 
 npm:
@@ -57,3 +59,5 @@ import session, { Store } from 'express-session'
     app.listen(3000, () => console.log(`http://localhost:3000`))
   })()
 ```
+
+**document expiration** collection must be created with ttl to avail document expiration`.

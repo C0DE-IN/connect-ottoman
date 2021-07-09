@@ -84,11 +84,11 @@ export class OttomanStore extends Store {
     ; (async () => {
       try {
         let key = this.prefix + sid
-        if (session?.cookie?.expires) {
-          const expiration = new Date(session.cookie.expires)
-        } else {
-          const expiration = new Date(Date.now() + this.maxExpiry * 1000)
-        }
+        // if (session?.cookie?.expires) {
+        //   const expiration = new Date(session.cookie.expires)
+        // } else {
+        //   const expiration = new Date(Date.now() + this.maxExpiry * 1000)
+        // }
         session.lastModified = new Date(Date.now())
         const { ottoman, SessionModel } = this.connectToOttoman()
         ottoman.start()

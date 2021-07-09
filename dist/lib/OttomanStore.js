@@ -80,12 +80,11 @@ class OttomanStore extends express_session_1.Store {
         (async () => {
             try {
                 let key = this.prefix + sid;
-                if (session?.cookie?.expires) {
-                    const expiration = new Date(session.cookie.expires);
-                }
-                else {
-                    const expiration = new Date(Date.now() + this.maxExpiry * 1000);
-                }
+                // if (session?.cookie?.expires) {
+                //   const expiration = new Date(session.cookie.expires)
+                // } else {
+                //   const expiration = new Date(Date.now() + this.maxExpiry * 1000)
+                // }
                 session.lastModified = new Date(Date.now());
                 const { ottoman, SessionModel } = this.connectToOttoman();
                 ottoman.start();
@@ -109,7 +108,7 @@ class OttomanStore extends express_session_1.Store {
             try {
                 const { ottoman, SessionModel } = this.connectToOttoman();
                 ottoman.start();
-                const result = await SessionModel.count({ id: { $like: "%*%" } });
+                const result = await SessionModel.count({ id: { $like: this.prefix } });
                 ottoman.close();
                 callback(null, result);
             }
@@ -124,7 +123,7 @@ class OttomanStore extends express_session_1.Store {
             try {
                 const { ottoman, SessionModel } = this.connectToOttoman();
                 ottoman.start();
-                await SessionModel.removeMany({ id: { $like: '%*%' } });
+                await SessionModel.removeMany({ id: { $like: this.prefix } });
                 ottoman.close();
                 callback(null);
             }
@@ -139,7 +138,7 @@ class OttomanStore extends express_session_1.Store {
             try {
                 const { ottoman, SessionModel } = this.connectToOttoman();
                 ottoman.start();
-                const result = await SessionModel.find({ id: { $like: '%*%' } });
+                const result = await SessionModel.find({ id: { $like: this.prefix } });
                 ottoman.close();
                 callback(null, result);
             }
