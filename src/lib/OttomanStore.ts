@@ -89,6 +89,7 @@ export class OttomanStore extends Store {
         } else {
           const expiration = new Date(Date.now() + this.maxExpiry * 1000)
         }
+        session.lastModified = new Date(Date.now())
         const { ottoman, SessionModel } = this.connectToOttoman()
         ottoman.start()
         const result = await SessionModel.findOneAndUpdate({ id: key }, { session: session })
