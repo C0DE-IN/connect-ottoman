@@ -108,7 +108,7 @@ export class OttomanStore extends Store {
       try {
         const { ottoman, SessionModel } = this.connectToOttoman()
         ottoman.start()
-        const result = await SessionModel.count({ id: { $like: "%*%" } })
+        const result = await SessionModel.count({ id: { $like: this.prefix } })
         ottoman.close()
         callback(null, result)
       }
@@ -121,7 +121,7 @@ export class OttomanStore extends Store {
       try {
         const { ottoman, SessionModel } = this.connectToOttoman()
         ottoman.start()
-        await SessionModel.removeMany({ id: { $like: '%*%' } })
+        await SessionModel.removeMany({ id: { $like: this.prefix } })
         ottoman.close()
         callback(null)
       } catch (err) { callback(err) }
@@ -141,7 +141,7 @@ export class OttomanStore extends Store {
       try {
         const { ottoman, SessionModel } = this.connectToOttoman()
         ottoman.start()
-        const result = await SessionModel.find({ id: { $like: '%*%' } })
+        const result = await SessionModel.find({ id: { $like: this.prefix } })
         ottoman.close()
         callback(null, result)
       } catch (err) { callback(err) }
