@@ -19,18 +19,20 @@ yarn add connect-ottoman express-session express
 ## API
 
 ```ts
-import connectOttoman from 'connect-ottoman'
+import connectOttoman from '../../dist'
 import express from 'express'
 import session, { Store } from 'express-session'
+import { Ottoman } from 'ottoman'
 
   ; (async () => {
     const OttomanStore = connectOttoman(session)
-    const client = {
+    const client = new Ottoman()
+    client.connect({
       connectionString: 'localhost:8091',
       bucketName: 'example',
       username: 'example',
-      password: 'example'
-    }
+      password: 'someSecret'
+    })
     const store = new OttomanStore({ client })
 
 
