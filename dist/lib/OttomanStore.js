@@ -22,22 +22,27 @@ class OttomanStore extends express_session_1.Store {
         this.collectionName = options.collectionName == null ? '_default' : options.collectionName;
     }
     connectToOttoman() {
-        const ottoman = new ottoman_1.Ottoman();
-        ottoman.connect(this.client);
-        const SessionModel = ottoman.model('Session', SessionSchema, {
-            collectionName: this.collectionName,
-            maxExpiry: this.maxExpiry,
-        });
-        return { ottoman, SessionModel };
+        const ottoman = this.client;
+        if (ottoman.getModel('Session') === undefined) {
+            const SessionModel = ottoman.model('Session', SessionSchema, {
+                collectionName: this.collectionName,
+                maxExpiry: this.maxExpiry,
+            });
+            ottoman.start();
+            return SessionModel;
+        }
+        else {
+            const SessionModel = ottoman.getModel('Session');
+            ottoman.start();
+            return SessionModel;
+        }
     }
     get(sid, callback) {
         (async () => {
             try {
                 const key = this.prefix + sid;
-                const { ottoman, SessionModel } = this.connectToOttoman();
-                ottoman.start();
+                const SessionModel = this.connectToOttoman();
                 const result = await SessionModel.findOne({ id: key });
-                ottoman.close();
                 callback(null, result.session);
             }
             catch (err) {
@@ -49,11 +54,9 @@ class OttomanStore extends express_session_1.Store {
         (async () => {
             try {
                 const key = this.prefix + sid;
-                const { ottoman, SessionModel } = this.connectToOttoman();
-                ottoman.start();
+                const SessionModel = this.connectToOttoman();
                 const createSession = new SessionModel({ id: key, session: session });
                 await createSession.save();
-                ottoman.close();
             }
             catch (err) {
                 callback(err);
@@ -64,10 +67,8 @@ class OttomanStore extends express_session_1.Store {
         (async () => {
             try {
                 const key = this.prefix + sid;
-                const { ottoman, SessionModel } = this.connectToOttoman();
-                ottoman.start();
+                const SessionModel = this.connectToOttoman();
                 await SessionModel.removeById(key);
-                ottoman.close();
                 callback(null);
             }
             catch (err) {
@@ -81,11 +82,9 @@ class OttomanStore extends express_session_1.Store {
             try {
                 let key = this.prefix + sid;
                 session.lastModified = new Date(Date.now());
-                const { ottoman, SessionModel } = this.connectToOttoman();
-                ottoman.start();
+                const SessionModel = this.connectToOttoman();
                 const result = await SessionModel.findOneAndUpdate({ id: key }, { session: session });
-                ottoman.close();
-                if (result.length === 0) {
+                if (!result.id) {
                     return callback(new Error('Unable to find the session to touch'));
                 }
                 else {
@@ -101,10 +100,8 @@ class OttomanStore extends express_session_1.Store {
         ;
         (async () => {
             try {
-                const { ottoman, SessionModel } = this.connectToOttoman();
-                ottoman.start();
+                const SessionModel = this.connectToOttoman();
                 const result = await SessionModel.count({ id: { $like: '%' + this.prefix + '%' } });
-                ottoman.close();
                 callback(null, result);
             }
             catch (err) {
@@ -116,10 +113,8 @@ class OttomanStore extends express_session_1.Store {
         ;
         (async () => {
             try {
-                const { ottoman, SessionModel } = this.connectToOttoman();
-                ottoman.start();
+                const SessionModel = this.connectToOttoman();
                 await SessionModel.removeMany({ id: { $like: '%' + this.prefix + '%' } });
-                ottoman.close();
                 callback(null);
             }
             catch (err) {
@@ -131,10 +126,8 @@ class OttomanStore extends express_session_1.Store {
         ;
         (async () => {
             try {
-                const { ottoman, SessionModel } = this.connectToOttoman();
-                ottoman.start();
+                const SessionModel = this.connectToOttoman();
                 const result = await SessionModel.find({ id: { $like: '%' + this.prefix + '%' } });
-                ottoman.close();
                 callback(null, result);
             }
             catch (err) {

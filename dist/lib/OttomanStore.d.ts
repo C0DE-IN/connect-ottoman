@@ -1,15 +1,12 @@
 import session, { Store } from 'express-session';
 import { Ottoman } from 'ottoman';
 export declare class OttomanStore extends Store {
-    client: connectOptions;
+    client: Ottoman;
     collectionName: string;
     maxExpiry: number;
     prefix: string;
     constructor(options: OttomanStoreOptions);
-    connectToOttoman(): {
-        ottoman: Ottoman;
-        SessionModel: import("ottoman").ModelTypes<any, any>;
-    };
+    connectToOttoman(): import("ottoman").ModelTypes<any, any>;
     get(sid: string, callback: (err: any, session?: session.SessionData | null) => void): void;
     set(sid: string, session: session.SessionData, callback?: (err: any) => void): void;
     destroy(sid: string, callback?: (err: any) => void): void;
@@ -23,14 +20,8 @@ export declare class OttomanStore extends Store {
     } | null) => void): void;
 }
 export interface OttomanStoreOptions {
-    client?: connectOptions;
+    client?: Ottoman;
     collectionName?: string;
     maxExpiry?: number;
     prefix?: string;
-}
-export interface connectOptions {
-    connectionString: string;
-    bucketName: string;
-    username: string;
-    password: string;
 }
