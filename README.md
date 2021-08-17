@@ -19,7 +19,7 @@ yarn add connect-ottoman express-session express
 ## API
 
 ```ts
-import connectOttoman from '../../dist'
+import connectOttoman from 'connect-ottoman'
 import express from 'express'
 import session, { Store } from 'express-session'
 import { Ottoman } from 'ottoman'
