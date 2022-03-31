@@ -1,7 +1,7 @@
 {
   "name": "connect-ottoman",
-  "version": "1.0.1-beta.1",
-  "description": "connect-ottoman provides Couchbase Ottoman session storage for Express. Requires Ottoman >= 2.0.0-beta.2",
+  "version": "1.0.1-beta.2",
+  "description": "connect-ottoman provides Couchbase Ottoman session storage for Express. Requires Ottoman >= 2.1.0",
   "main": "index.js",
   "scripts": {
     "dev": "ts-node-dev --transpile-only src/example",
@@ -22,20 +22,20 @@
     "store",
     "session-store"
   ],
-  "author": "Vigneshwaran Ranganathan",
+  "author": "Vigneshwaran Renganathan",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/noiissyboy/connect-ottoman/issues"
   },
   "homepage": "https://github.com/noiissyboy/connect-ottoman#readme",
   "devDependencies": {
-    "@types/express-session": "^1.17.3",
-    "express-session": "^1.17.2",
+    "@types/express-session": "^1.17.4",
+    "express": "^4.17.3",
     "ts-node-dev": "^1.1.8",
-    "typescript": "^4.3.5"
+    "typescript": "^4.6.3"
   },
   "dependencies": {
-    "express": "^4.17.1",
-    "ottoman": "^2.0.0-beta.2"
+    "express-session": "^1.17.2",
+    "ottoman": "^2.1.0"
   }
 }
