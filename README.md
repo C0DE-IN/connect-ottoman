@@ -33,7 +33,10 @@ import { Ottoman } from 'ottoman'
       username: 'example',
       password: 'someSecret'
     })
-    const store = new OttomanStore({ client })
+    
+    // except client other options are optional
+    
+    const store = new OttomanStore({ client, sesionSchema, scopeName, collectionName, modelName  })
 
 
     const createApp = (store: Store) => {
