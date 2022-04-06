@@ -34,9 +34,8 @@ import { Ottoman } from 'ottoman'
       password: 'someSecret'
     })
     
-    // except client other options are optional
     
-    const store = new OttomanStore({ client, sesionSchema, scopeName, collectionName, modelName  })
+    const store = new OttomanStore({ client })
 
 
     const createApp = (store: Store) => {
