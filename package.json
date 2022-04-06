@@ -1,6 +1,6 @@
 {
   "name": "connect-ottoman",
-  "version": "1.0.1-beta.2",
+  "version": "1.0.2",
   "description": "connect-ottoman provides Couchbase Ottoman session storage for Express. Requires Ottoman >= 2.1.0",
   "main": "index.js",
   "scripts": {
