@@ -44,6 +44,9 @@ import { Ottoman } from 'ottoman'
 
 
     const store = new OttomanStore({ client, scopeName, collectionName, sessionSchema, modelName, prefix, maxExpiry })
+    
+    
+    const store = new OttomanStore({ client })
 
 
     const createApp = (store: Store) => {
