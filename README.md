@@ -1,5 +1,4 @@
-**connect-ottoman** provides Ottoman session storage for Express. Requires Ottoman >= `2.0.0-beta`.
-
+**connect-ottoman** provides Ottoman session storage for Express. Requires Ottoman >= `2.4.0`.
 
 
 ## Installation
