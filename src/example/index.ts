@@ -1,10 +1,9 @@
-import connectOttoman from '../../dist'
+import  OttomanStore  from '../../dist'
 import express from 'express'
 import session, { Store } from 'express-session'
 import { Ottoman } from 'ottoman'
 
   ; (async () => {
-    const OttomanStore = connectOttoman(session)
     const client = new Ottoman()
     client.connect({
       connectionString: 'localhost:8091',
@@ -13,7 +12,6 @@ import { Ottoman } from 'ottoman'
       password: 'someSecret'
     })
     const store = new OttomanStore({ client })
-
 
     const createApp = (store: Store) => {
       const app = express()

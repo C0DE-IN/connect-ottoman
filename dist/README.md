@@ -33,6 +33,19 @@ import { Ottoman } from 'ottoman'
       username: 'example',
       password: 'someSecret'
     })
+
+    //Except client other options are optional
+    // scopeName:string
+    // collectionName:string
+    // sessionSchema:Schema
+    // modelName: string
+    // prefix:string
+    // maxExpiry:number
+
+
+    const store = new OttomanStore({ client, scopeName, collectionName, sessionSchema, modelName, prefix, maxExpiry })
+    
+    
     const store = new OttomanStore({ client })
 
 
@@ -63,3 +76,5 @@ import { Ottoman } from 'ottoman'
 ```
 
 **document expiration** collection must be created with ttl to avail document expiration`.
+
+
